@@ -1,0 +1,12 @@
+CLAUDE.md
+.claude/
+.vault/
+.pixi/
+pixi.lock
+_targets/
+.cache/
+*.rds
+*.Rhistory
+*.RData
+inst/doc/
+/*.Rd

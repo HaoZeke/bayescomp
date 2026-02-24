@@ -1,0 +1,47 @@
+[workspace]
+name = "bayescomp"
+version = "0.1.0"
+description = "Bayesian Hierarchical Comparison of Computational Method Benchmarks"
+authors = ["Rohit Goswami <rgoswami@ieee.org>"]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tasks]
+pipeline = "Rscript --no-init-file -e 'targets::tar_make()'"
+visualize = "Rscript --no-init-file -e 'targets::tar_visnetwork()'"
+clean = "Rscript --no-init-file -e 'targets::tar_destroy()'"
+document = "Rscript --no-init-file -e 'devtools::document()'"
+check = "Rscript --no-init-file -e 'devtools::check()'"
+test = "Rscript --no-init-file -e 'devtools::test()'"
+site = "Rscript --no-init-file -e 'pkgdown::build_site()'"
+
+[dependencies]
+r-base = ">=4.3"
+r-devtools = ">=2.4"
+r-brms = ">=2.21"
+r-cmdstanr = ">=0.8"
+cmdstan = ">=2.36"
+r-tidybayes = ">=3.0"
+r-bayesplot = ">=1.11"
+r-loo = ">=2.7"
+r-posterior = ">=1.5"
+r-ggplot2 = ">=3.5"
+r-dplyr = ">=1.1"
+r-tidyr = ">=1.3"
+r-rlang = ">=1.1"
+r-cli = ">=3.6"
+r-archive = ">=1.1"
+r-targets = ">=1.5"
+r-tarchetypes = ">=0.8"
+r-testthat = ">=3.2"
+r-knitr = ">=1.45"
+r-rmarkdown = ">=2.25"
+r-pkgdown = ">=2.0"
+r-ggthemes = ">=5.1"
+r-showtext = ">=0.9"
+r-sysfonts = ">=0.8"
+r-marginaleffects = ">=0.20"
+r-collapse = ">=1.9"
+r-withr = ">=3.0"
+r-roxygen2 = ">=7.3"
+radian = ">=0.6"
