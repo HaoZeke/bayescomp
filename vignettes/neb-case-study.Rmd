@@ -1,0 +1,295 @@
+---
+title: "NEB Method Comparison"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{NEB Method Comparison}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Overview
+
+This vignette reproduces the full Bayesian analysis from the OCI-NEB paper,
+comparing the OCI-NEB method (labelled `MMF` in the data) against the
+standard CI-NEB method on the Baker benchmark set of 24 transition-state
+search problems.
+
+The analysis covers:
+
+- Data preparation with RMSD spline covariate
+- Negative binomial model with shape submodel and censoring
+- All six diagnostic plots
+- Effect extraction and publication-ready tables
+
+## Data preparation
+
+```{r load}
+library(bayescomp)
+library(dplyr)
+```
+
+```{r read}
+path <- system.file("extdata", "baker_bench.csv", package = "bayescomp")
+
+bench_raw <- bc_read_benchmark(
+  path,
+  format          = "wide",
+  method_suffixes = c("CINEB", "MMF"),
+  system_col      = "System",
+  count_col       = "Calls",
+  time_col        = "Time",
+  success_col     = "Term"
+)
+```
+
+Pivot to long format, adding a binary censoring indicator for systems that
+hit the maximum iteration count.  The `cens_value` argument flags any
+observation whose termination status matches the given string.
+
+```{r pivot}
+bench_long <- bc_pivot_long(
+  bench_raw,
+  method_pattern = "_(CINEB|MMF)$",
+  method_levels  = c("CINEB", "MMF"),
+  count_col      = "count",
+  time_col       = "time",
+  success_col    = "success",
+  success_value  = "GOOD",
+  cens_value     = "BAD_MAX_ITERATIONS"
+)
+```
+
+The RMSD between the initial and final NEB images measures the geometric
+difficulty of the reaction path.  This column was already pivoted into the
+long data as `RMSD_Init_Final`.  Verify it is present:
+
+```{r rmsd-check}
+"RMSD_Init_Final" %in% names(bench_long)
+```
+
+## Model fitting
+
+The full model specification includes:
+
+- A fixed effect for `method` (CI-NEB vs OCI-NEB)
+- A method-varying thin plate spline on `RMSD_Init_Final`
+- A random intercept per test system
+- A shape submodel (`shape ~ method`) so overdispersion can differ
+- Right-censoring via the `censored` column
+
+```{r fit, eval = FALSE}
+fit <- bc_fit(
+  bench_long,
+  response         = "count",
+  spline_by_method = "RMSD_Init_Final",
+  model_shape      = TRUE,
+  cens_col         = "censored",
+  chains           = 4,
+  iter             = 4000,
+  warmup           = 1000,
+  seed             = 1995,
+  file             = "models/baker_full"
+)
+```
+
+## Diagnostic 1 -- Convergence check
+
+`bc_check_convergence()` examines Rhat and effective sample size (ESS) for
+every parameter.  The thresholds follow current best practice: Rhat below
+1.01 and bulk ESS above 400.
+
+```{r convergence, eval = FALSE}
+conv <- bc_check_convergence(fit)
+conv$passed
+```
+
+Expected output:
+
+```
+v All convergence diagnostics passed (Rhat <= 1.01, ESS >= 400).
+[1] TRUE
+```
+
+If convergence fails, increase `iter` or `adapt_delta` (already set to 0.99
+by default).  Inspect the problematic parameters:
+
+```{r conv-details, eval = FALSE}
+conv$problems
+conv$max_rhat
+conv$min_ess
+```
+
+## Diagnostic 2 -- LOO-CV
+
+Leave-one-out cross-validation via Pareto-smoothed importance sampling
+detects observations that the model struggles to predict.
+
+```{r loo, eval = FALSE}
+loo_result <- bc_loo(fit)
+```
+
+Expected output:
+
+```
+i LOO-CV: elpd = -283.2
+i Pareto k: 48 good (k <= 0.5), 2 marginal, 0 bad (k > 0.7)
+```
+
+No observations with Pareto k above 0.7 means the LOO approximation is
+reliable and no refitting is needed.
+
+## Diagnostic 3 -- Posterior predictive checks
+
+Posterior predictive checks compare the observed data distribution against
+data simulated from the fitted model.  If the model is well-specified,
+simulated data should look similar to the observed data.
+
+```{r pp-check, eval = FALSE}
+pp <- bc_pp_check(fit)
+pp$density
+pp$grouped
+```
+
+The density overlay (`pp$density`) shows the observed density (dark line)
+against 50 simulated densities (light lines).  Good overlap indicates
+adequate fit.
+
+The grouped check (`pp$grouped`) stratifies by method, letting you verify
+that the model captures both CI-NEB and OCI-NEB distributions separately.
+
+## Diagnostic 4 -- LOO-PIT QQ plot
+
+The LOO-PIT (Probability Integral Transform) plot assesses calibration.
+If the model is well-calibrated, the LOO-PIT values follow a uniform
+distribution, and the QQ plot falls along the diagonal.
+
+```{r loo-pit, eval = FALSE}
+bc_plot_loo_pit(fit, loo_result, y = bench_long$count)
+```
+
+Deviations from the diagonal indicate systematic miscalibration.  A
+concave pattern (points above the line on the left, below on the right)
+suggests the model is overdispersed relative to the data.
+
+## Diagnostic 5 -- Posterior predictive density
+
+The standalone PP density plot uses `theme_bayescomp()` styling:
+
+```{r pp-density, eval = FALSE}
+bc_plot_pp(fit, ndraws = 50, type = "dens_overlay")
+```
+
+## Diagnostic 6 -- Shape parameter comparison
+
+For negative binomial models with `model_shape = TRUE`, the shape
+parameter captures overdispersion.  Lower shape means more overdispersion
+(more variance relative to the mean).
+
+```{r shape, eval = FALSE}
+bc_plot_shape(fit)
+```
+
+This density plot shows the posterior distribution of the log-scale shape
+parameter for each method.  If the two densities are well-separated, the
+methods have genuinely different variance structures.
+
+## Effect extraction
+
+```{r effects, eval = FALSE}
+effects <- bc_summarize_effects(fit)
+print(effects)
+```
+
+Expected output:
+
+```
+# A tibble: 3 x 5
+  effect_type                      median  lower  upper formatted
+  <chr>                             <dbl>  <dbl>  <dbl> <chr>
+1 Expected Response (Baseline)     551.   331.   917.   551.23 [330.65, 917.42]
+2 Multiplicative Factor (MMF)        0.54   0.45   0.63 0.54 [0.45, 0.63]
+3 Percentage Change (MMF)          -46.4  -54.6  -36.7  -46.41 [-54.62, -36.73]
+```
+
+The headline result: OCI-NEB requires 46.4% fewer force/energy evaluations
+than CI-NEB (95% CrI: [-54.6%, -36.7%]).
+
+## Publication table
+
+```{r table, eval = FALSE}
+bc_effect_table(fit)
+```
+
+```
+# A tibble: 3 x 3
+  Effect                           Median  `95% CrI`
+  <chr>                            <chr>   <chr>
+1 Expected Response (Baseline)     551.23  [330.65, 917.42]
+2 Multiplicative Factor (MMF)      0.54    [0.45, 0.63]
+3 Percentage Change (MMF)          -46.4%  [-54.6%, -36.7%]
+```
+
+## Forest plot
+
+The forest plot provides a visual summary of the percentage change with
+credible intervals.  A vertical dashed line at zero marks no effect.
+
+```{r forest, eval = FALSE}
+bc_plot_forest(fit)
+```
+
+## Conditional effects plot
+
+The conditional effects plot shows predicted counts as a function of the
+RMSD covariate, with separate curves for each method and raw data points
+overlaid.
+
+```{r conditional, eval = FALSE}
+bc_plot_conditional(
+  fit,
+  effects      = "RMSD_Init_Final:method",
+  data         = bench_long,
+  response_col = "count",
+  log_y        = TRUE
+)
+```
+
+Both methods show increasing call counts with RMSD (harder reactions need
+more iterations), but OCI-NEB's curve is consistently lower.  The gap
+widens for high-RMSD systems, where OCI-NEB's advantage is most pronounced.
+
+## Time analysis
+
+You can also model wall-clock time using a Gamma family:
+
+```{r time, eval = FALSE}
+fit_time <- bc_fit(
+  bench_long,
+  response  = "time",
+  family    = brms::brmsfamily("Gamma", link = "log"),
+  file      = "models/baker_time"
+)
+
+bc_summarize_effects(fit_time)
+```
+
+The Gamma family is appropriate for positive continuous data with right
+skew, which is typical of computation times.
+
+## Summary of diagnostics
+
+| Diagnostic                  | What it checks                | Pass criterion               |
+|-----------------------------|-------------------------------|------------------------------|
+| `bc_check_convergence()`    | MCMC mixing                   | Rhat <= 1.01, ESS >= 400    |
+| `bc_loo()`                  | Predictive accuracy           | No Pareto k > 0.7           |
+| `bc_pp_check()`             | Distributional fit            | Visual overlap               |
+| `bc_plot_loo_pit()`         | Calibration                   | Points near diagonal         |
+| `bc_plot_pp()`              | Density overlap               | Simulated matches observed   |
+| `bc_plot_shape()`           | Dispersion structure          | Shape separation if expected |
