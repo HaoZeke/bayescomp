@@ -1,0 +1,28 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 6 1 * *'
+
+name: lychee link check
+
+permissions: read-all
+
+jobs:
+  linkcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --config .lychee.toml
+            --no-progress
+            '*.md'
+            'vignettes/*.Rmd'
+            'inst/paper/*.Rnw'
+            'DESCRIPTION'
+          fail: false

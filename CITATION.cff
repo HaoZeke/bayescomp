@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "bayescomp: Bayesian Hierarchical Comparison of Computational Method Benchmarks"
+version: 0.1.0
+license: GPL-3.0-or-later
+repository-code: "https://github.com/HaoZeke/bayescomp"
+authors:
+  - family-names: Goswami
+    given-names: Rohit
+    email: rgoswami@ieee.org
+    orcid: "https://orcid.org/0000-0002-2393-8056"
+keywords:
+  - bayesian-statistics
+  - benchmark-comparison
+  - hierarchical-models
+  - computational-chemistry
+  - brms
+  - r-package

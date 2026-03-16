@@ -1,0 +1,19 @@
+exclude_path = [
+  ".pixi",
+  "pixi.lock",
+  "inst/extdata",
+  "man",
+  "_targets",
+]
+
+exclude = [
+  "https://mc-stan.org/.*",
+  "https://cloud.r-project.org",
+  "localhost",
+  "127.0.0.1",
+]
+
+accept = [200, 429]
+timeout = 30
+max_retries = 3
+max_concurrency = 4
