@@ -14,6 +14,7 @@
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_summarize_effects(model)
 #' }
+#' @family effects
 #' @export
 bc_summarize_effects <- function(model, width = 0.95) {
   if (!inherits(model, "brmsfit")) {
@@ -127,6 +128,7 @@ bc_summarize_effects <- function(model, width = 0.95) {
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_effect_table(model)
 #' }
+#' @family effects
 #' @export
 bc_effect_table <- function(model, ...) {
   effects <- bc_summarize_effects(model, ...)
@@ -160,6 +162,7 @@ bc_effect_table <- function(model, ...) {
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_pairwise_contrasts(model)
 #' }
+#' @family effects
 #' @export
 bc_pairwise_contrasts <- function(model, method_col = "method", width = 0.95) {
   if (!inherits(model, "brmsfit")) {

@@ -17,6 +17,7 @@
 #' @examples
 #' bc_suggest_family(c(100, 200, 50, 300))
 #' bc_suggest_family(c(1.5, 2.3, 0.8), type = "time")
+#' @family families
 #' @export
 bc_suggest_family <- function(y, type = c("auto", "count", "time", "success",
                                           "real", "gaussian")) {
@@ -101,6 +102,7 @@ bc_suggest_family <- function(y, type = c("auto", "count", "time", "success",
 #' @examples
 #' bc_default_priors()
 #' bc_default_priors(family = brms::brmsfamily("Gamma", link = "log"))
+#' @family families
 #' @export
 bc_default_priors <- function(family = brms::negbinomial(),
                               has_shape_submodel = FALSE,

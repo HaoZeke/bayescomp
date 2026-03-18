@@ -18,6 +18,7 @@
 #' raw <- bc_read_benchmark("benchmark.csv", format = "wide",
 #'   method_suffixes = c("A", "B"), count_col = "Calls")
 #' }
+#' @family data-prep
 #' @export
 bc_read_benchmark <- function(path,
                               format = c("wide", "long"),
@@ -94,6 +95,7 @@ bc_read_benchmark <- function(path,
 #' long <- bc_pivot_long(raw, method_pattern = "_(A|B)$",
 #'   method_levels = c("A", "B"))
 #' }
+#' @family data-prep
 #' @export
 bc_pivot_long <- function(data,
                           method_pattern,
@@ -177,6 +179,7 @@ bc_pivot_long <- function(data,
 #' data <- bc_simulate_benchmark(n_systems = 10, n_methods = 2)
 #' data$barrier <- runif(nrow(data), 0.5, 1.5)
 #' bc_filter_matching(data, compare_col = "barrier", require_success = FALSE)
+#' @family data-prep
 #' @export
 bc_filter_matching <- function(data,
                                compare_col,
@@ -256,6 +259,7 @@ bc_filter_matching <- function(data,
 #' @examples
 #' data <- bc_simulate_benchmark(n_systems = 10, n_methods = 2)
 #' bc_validate(data)
+#' @family data-prep
 #' @export
 bc_validate <- function(data,
                         count_col = "count",

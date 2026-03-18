@@ -18,5 +18,7 @@
 ^CONTRIBUTING\.md$
 ^\.lychee\.toml$
 ^README\.md$
+^_pkgdown\.yml$
+^pkgdown$
 ^paper\.md$
 ^paper\.bib$

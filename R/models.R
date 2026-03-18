@@ -39,6 +39,7 @@
 #' data <- bc_simulate_benchmark(n_systems = 20)
 #' model <- bc_fit(data, response = "count")
 #' }
+#' @family fitting
 #' @export
 bc_fit <- function(data,
                    response = "count",
@@ -64,7 +65,7 @@ bc_fit <- function(data,
 
   # Auto-detect backend
   if (is.null(backend)) {
-    if (requireNamespace("cmdstanr", quietly = TRUE)) {
+    if (nzchar(system.file(package = "cmdstanr"))) {
       backend <- "cmdstanr"
     } else {
       backend <- "rstan"
@@ -183,6 +184,7 @@ bc_fit <- function(data,
 #' formula <- brms::bf(count ~ method + (1 | system_id))
 #' model <- bc_fit_design(data, formula = formula)
 #' }
+#' @family fitting
 #' @export
 bc_fit_design <- function(data,
                           formula,
@@ -203,7 +205,7 @@ bc_fit_design <- function(data,
 
   # Auto-detect backend
   if (is.null(backend)) {
-    if (requireNamespace("cmdstanr", quietly = TRUE)) {
+    if (nzchar(system.file(package = "cmdstanr"))) {
       backend <- "cmdstanr"
     } else {
       backend <- "rstan"
@@ -335,6 +337,7 @@ bc_fit_design <- function(data,
 #' models <- bc_fit_suite(data, count_col = "count",
 #'   time_col = NULL, success_col = NULL)
 #' }
+#' @family fitting
 #' @export
 bc_fit_suite <- function(data,
                          count_col = "count",

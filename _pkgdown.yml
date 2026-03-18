@@ -1,0 +1,85 @@
+url: https://haozeke.github.io/bayescomp/
+
+template:
+  bootstrap: 5
+
+reference:
+  - title: Data Preparation
+    desc: Read, reshape, validate, and filter benchmark data.
+    contents:
+      - bc_read_benchmark
+      - bc_pivot_long
+      - bc_validate
+      - bc_filter_matching
+
+  - title: Family and Prior Selection
+    desc: Auto-detect response families and set weakly informative priors.
+    contents:
+      - bc_suggest_family
+      - bc_default_priors
+
+  - title: Model Fitting
+    desc: Fit Bayesian hierarchical models for benchmark comparison.
+    contents:
+      - bc_fit
+      - bc_fit_design
+      - bc_fit_suite
+
+  - title: Diagnostics
+    desc: Convergence checks, LOO-CV, posterior predictive validation.
+    contents:
+      - bc_check_convergence
+      - bc_loo
+      - bc_loo_compare
+      - bc_pp_check
+      - bc_dharma_check
+      - bc_report
+
+  - title: Effect Extraction
+    desc: Summarize method effects with credible intervals.
+    contents:
+      - bc_summarize_effects
+      - bc_effect_table
+      - bc_pairwise_contrasts
+
+  - title: Predictions
+    desc: Cached posterior expected predictions.
+    contents:
+      - bc_epred_draws
+
+  - title: Simulation
+    desc: Generate synthetic benchmark data for power analysis.
+    contents:
+      - bc_simulate_benchmark
+
+  - title: Visualization
+    desc: Publication-quality plots for benchmark comparison.
+    contents:
+      - bc_plot_conditional
+      - bc_plot_pp
+      - bc_plot_shape
+      - bc_plot_loo_pit
+      - bc_plot_forest
+      - bc_plot_contrasts
+      - bc_plot_pareto_k
+      - bc_plot_trace
+      - bc_plot_cactus
+      - bc_plot_performance_profile
+      - bc_plot_dumbbell
+      - bc_plot_violin
+      - bc_plot_method_diff
+      - bc_plot_scatter_comparison
+
+  - title: Theme and Colors
+    desc: ggplot2 theme and color palettes.
+    contents:
+      - theme_bayescomp
+      - scale_color_bayescomp
+      - scale_fill_bayescomp
+      - bc_colors
+      - bc_colors_discrete
+
+  - title: Targets Integration
+    desc: Build reproducible pipelines with targets.
+    contents:
+      - bc_tar_pipeline

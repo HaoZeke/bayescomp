@@ -16,6 +16,7 @@
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_report(model)
 #' }
+#' @family diagnostics
 #' @export
 bc_report <- function(model, width = 0.95, loo = TRUE) {
   if (!inherits(model, "brmsfit")) {

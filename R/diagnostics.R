@@ -20,6 +20,7 @@
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_check_convergence(model)
 #' }
+#' @family diagnostics
 #' @export
 bc_check_convergence <- function(model, max_rhat = 1.01, min_ess = 400) {
   if (!inherits(model, "brmsfit")) {
@@ -78,6 +79,7 @@ bc_check_convergence <- function(model, max_rhat = 1.01, min_ess = 400) {
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' loo_result <- bc_loo(model)
 #' }
+#' @family diagnostics
 #' @export
 bc_loo <- function(model, reloo = TRUE) {
   if (!inherits(model, "brmsfit")) {
@@ -113,6 +115,7 @@ bc_loo <- function(model, reloo = TRUE) {
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' plots <- bc_pp_check(model)
 #' }
+#' @family diagnostics
 #' @export
 bc_pp_check <- function(model, group_col = "method", ndraws = 50) {
   if (!inherits(model, "brmsfit")) {
@@ -147,6 +150,7 @@ bc_pp_check <- function(model, group_col = "method", ndraws = 50) {
 #' m2 <- bc_fit(data, response = "count", model_shape = TRUE)
 #' bc_loo_compare(m1, m2, model_names = c("fixed_shape", "varying_shape"))
 #' }
+#' @family diagnostics
 #' @export
 bc_loo_compare <- function(..., model_names = NULL) {
   models <- list(...)
