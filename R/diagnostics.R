@@ -1,4 +1,11 @@
 #' @srrstats {BS2.0} bc_check_convergence verifies Rhat and ESS
+#' @srrstats {BS4.3} bc_check_convergence() with configurable thresholds.
+#' @srrstats {BS4.5} bc_check_convergence() warns on non-convergence.
+#' @srrstats {BS5.3} bc_check_convergence() returns convergence statistics.
+#' @srrstats {BS5.5} bc_check_convergence()$problems returns diagnostics.
+#' @srrstats {RE3.0} bc_check_convergence() warns on non-convergence.
+#' @srrstats {RE3.2} Default thresholds: max_rhat=1.01, min_ess=400.
+#' @srrstats {RE3.3} bc_check_convergence() allows explicit threshold setting.
 #' Check convergence diagnostics for a brmsfit
 #'
 #' Examines Rhat and effective sample size (ESS) for all parameters and

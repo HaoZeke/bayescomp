@@ -1,4 +1,9 @@
 #' @srrstats {RE4.0} Link-aware effect summaries document model assumptions
+#' @srrstats {RE4.3} Bayesian CrI via bc_summarize_effects(), not confint().
+#' @srrstats {RE4.11} bc_loo() provides elpd. bc_summarize_effects() gives CrI.
+#' @srrstats {RE4.17} brms::print.brmsfit() summarizes. bc_report() adds.
+#' @srrstats {RE4.18} brms::summary.brmsfit(). bc_effect_table().
+#' @srrstats {BS6.4} bc_effect_table() formats effects for publication.
 #' Summarize treatment effects on the response scale
 #'
 #' Extracts posterior draws for the method effect and transforms them to

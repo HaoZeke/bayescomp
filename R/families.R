@@ -1,4 +1,10 @@
 #' @srrstats {BS1.0} bc_default_priors documents prior distributions
+#' @srrstats {BS1.1} bc_fit() accepts custom brmsprior via prior parameter.
+#' @srrstats {BS1.2} Prior specification in README, vignettes, function docs.
+#' @srrstats {BS1.2c} bc_default_priors() has examples.
+#' @srrstats {BS2.5} bc_default_priors() uses well-defined distributions.
+#' @srrstats {G2.3} Character parameters use match.arg() in bc_suggest_family.
+#' @srrstats {G2.3a} match.arg() used for all character enum parameters.
 #' Suggest appropriate brms family based on response variable
 #'
 #' Examines the response vector and suggests the most appropriate brms

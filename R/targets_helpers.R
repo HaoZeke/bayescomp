@@ -1,4 +1,9 @@
 #' @srrstats {G5.10} bc_tar_pipeline supports reproducible pipelines
+#' @srrstats {G5.12} test-recovery.R documents skip conditions and runtime.
+#' @srrstats {G5.4} test-recovery.R: parameter recovery tests verify
+#'   correctness against known DGP.
+#' @srrstats {G5.4a} Correctness tested against simple known cases via
+#'   bc_simulate_benchmark() with known true_effect.
 #' Create a targets-compatible benchmark analysis pipeline
 #'
 #' Returns a list of target objects that implement the full bayescomp

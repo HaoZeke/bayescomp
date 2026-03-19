@@ -1,4 +1,7 @@
 #' @srrstats {BS5.2} bc_epred_draws caches posterior predictions
+#' @srrstats {BS5.0} brmsfit includes seed.
+#' @srrstats {BS5.1} brmsfit includes input data and formula.
+#' @srrstats {G4.0} bc_epred_draws() validates file path for caching.
 #' Cached posterior expected predictions
 #'
 #' Computes or loads cached posterior expected predictions using

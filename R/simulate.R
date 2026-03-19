@@ -1,4 +1,12 @@
 #' @srrstats {BS7.0} bc_simulate_benchmark enables parameter recovery testing
+#' @srrstats {BS7.2} test-recovery.R: posterior recovery with known DGP.
+#' @srrstats {G5.0} Tests use bc_simulate_benchmark() with known DGP
+#'   properties and fixed seeds.
+#' @srrstats {G5.1} bc_simulate_benchmark() is exported for users to verify
+#'   test data properties and conduct their own power analyses.
+#' @srrstats {G1.5} Reproducible performance claims via bc_simulate_benchmark()
+#'   and parameter recovery tests in test-recovery.R with fixed seeds.
+#' @srrstats {G5.5} Fixed seeds in test-recovery.R (seeds 42-49).
 #' Simulate benchmark comparison data
 #'
 #' Generates synthetic benchmark data from a known data-generating process

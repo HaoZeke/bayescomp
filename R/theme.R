@@ -1,4 +1,7 @@
 #' @srrstats {BS6.3} theme_bayescomp and scale_*_bayescomp for visualization
+#' @srrstats {RE6.1} brmsfit dispatches to brms::plot.brmsfit().
+#' @srrstats {G1.4} All 42 exports have complete roxygen2 documentation.
+#' @srrstats {G1.4a} Internal functions documented with keywords internal or noRd.
 #' bayescomp color palettes
 #'
 #' Named color palettes for benchmark comparison plots. The `bayescomp`

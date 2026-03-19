@@ -1,4 +1,7 @@
 #' @srrstats {BS6.4} bc_report provides summary of convergence, effects, LOO
+#' @srrstats {BS6.0} brmsfit has print method. bc_report() adds formatting.
+#' @srrstats {RE4.7} bc_check_convergence() returns convergence stats.
+#' @srrstats {BS1.4} bc_report triggers convergence checking as part of report.
 #' Generate a complete analysis report
 #'
 #' Produces a formatted text summary combining convergence diagnostics,

@@ -1,4 +1,12 @@
 #' @srrstats {BS2.7} bc_fit passes seed parameter to brms::brm
+#' @srrstats {RE1.0} bc_fit() formula interface. bc_fit_design() for bf().
+#' @srrstats {RE1.1} Formula construction documented in bc_fit().
+#' @srrstats {BS1.3} Computational parameters documented in bc_fit() params.
+#' @srrstats {BS1.4} bc_fit() diagnostics parameter controls convergence
+#'   checking.
+#' @srrstats {BS2.6} Computational parameters validated by brms.
+#' @srrstats {BS2.12} bc_fit() diagnostics parameter controls verbosity.
+#' @srrstats {BS2.13} bc_fit(diagnostics=FALSE) suppresses messages.
 #' Fit a Bayesian benchmark comparison model
 #'
 #' Wraps [brms::brm()] with sensible defaults for comparing computational

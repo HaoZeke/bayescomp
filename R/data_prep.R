@@ -1,4 +1,21 @@
 #' @srrstats {G2.13} bc_validate checks NA in required columns
+#' @srrstats {G2.0} bc_validate() checks column existence, types, factor
+#'   levels, and minimum method count.
+#' @srrstats {G2.1} bc_validate() checks numeric types for response, factor
+#'   for method and system columns.
+#' @srrstats {G2.14} bc_validate() errors on NA/NaN/Inf by default.
+#' @srrstats {G2.14a} bc_validate() errors on NA with message including count.
+#' @srrstats {G2.15} NaN checked separately from NA with distinct messages.
+#' @srrstats {G2.16} bc_validate() has allow_negative parameter for Student-t
+#'   and Gaussian families.
+#' @srrstats {G2.4} bc_validate() converts non-factor method/system columns
+#'   with warning. bc_pivot_long() creates factors from character.
+#' @srrstats {G2.4d} bc_validate() converts to factor via as.factor() with
+#'   cli::cli_warn().
+#' @srrstats {G2.9} bc_validate() issues cli::cli_warn() on type conversions.
+#' @srrstats {G2.2} bc_validate() rejects data with fewer than 2 method levels.
+#' @srrstats {RE2.1} bc_validate() handles NA/NaN/Inf with distinct messages.
+#' @srrstats {RE2.2} Missing values rejected in both response and predictors.
 #' Read and validate benchmark data
 #'
 #' Reads a CSV file containing benchmark results for two or more computational
