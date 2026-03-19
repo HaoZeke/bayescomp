@@ -1,3 +1,4 @@
+#' @srrstats {BS6.3} theme_bayescomp and scale_*_bayescomp for visualization
 #' bayescomp color palettes
 #'
 #' Named color palettes for benchmark comparison plots. The `bayescomp`

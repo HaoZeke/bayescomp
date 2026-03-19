@@ -125,9 +125,9 @@ bc_default_priors <- function(family = brms::negbinomial(),
       priors <- c(priors, brms::prior(normal(0, 0.5), class = "b", dpar = "shape"))
     }
   } else if (family_name == "Gamma" || family_name == "gamma") {
-    priors <- c(priors, brms::prior(gamma(0.01, 0.01), class = "shape"))
+    priors <- c(priors, brms::prior_string("gamma(0.01, 0.01)", class = "shape"))
   } else if (family_name == "student") {
-    priors <- c(priors, brms::prior(gamma(2, 0.1), class = "nu"))
+    priors <- c(priors, brms::prior_string("gamma(2, 0.1)", class = "nu"))
   }
 
   priors

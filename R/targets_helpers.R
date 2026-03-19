@@ -1,3 +1,4 @@
+#' @srrstats {G5.10} bc_tar_pipeline supports reproducible pipelines
 #' Create a targets-compatible benchmark analysis pipeline
 #'
 #' Returns a list of target objects that implement the full bayescomp

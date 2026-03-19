@@ -1,3 +1,4 @@
+#' @srrstats {BS6.4} bc_report provides summary of convergence, effects, LOO
 #' Generate a complete analysis report
 #'
 #' Produces a formatted text summary combining convergence diagnostics,

@@ -1,3 +1,4 @@
+#' @srrstats {BS5.2} bc_epred_draws caches posterior predictions
 #' Cached posterior expected predictions
 #'
 #' Computes or loads cached posterior expected predictions using
