@@ -121,17 +121,13 @@ Each row is one system; columns like <code>Calls_CINEB</code> and
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">bench_raw</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 24 27</span></span>
+<span><span class="co">#&gt; [1] 24 13</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">bench_raw</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "System"                "Reaction"              "Formula"              </span></span>
-<span><span class="co">#&gt;  [4] "N_Atoms"               "Total_Mass"            "E_Diff"               </span></span>
-<span><span class="co">#&gt;  [7] "Barrier_Diff"          "RMSD_Saddle"           "Ratio_Calls"          </span></span>
-<span><span class="co">#&gt; [10] "Ratio_Time"            "RMSD_Init_Final_CINEB" "RMSD_Init_Final_MMF"  </span></span>
-<span><span class="co">#&gt; [13] "Barrier_CINEB"         "Force_CINEB"           "Path_Len_CINEB"       </span></span>
-<span><span class="co">#&gt; [16] "Calls_CINEB"           "Time_CINEB"            "Term_CINEB"           </span></span>
-<span><span class="co">#&gt; [19] "Force_Init_CINEB"      "Force_Final_CINEB"     "Barrier_MMF"          </span></span>
-<span><span class="co">#&gt; [22] "Force_MMF"             "Calls_MMF"             "Time_MMF"             </span></span>
-<span><span class="co">#&gt; [25] "Term_MMF"              "Force_Init_MMF"        "Force_Final_MMF"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [4] "N_Atoms"               "Total_Mass"            "RMSD_Init_Final_CINEB"</span></span>
+<span><span class="co">#&gt;  [7] "RMSD_Init_Final_MMF"   "Calls_CINEB"           "Time_CINEB"           </span></span>
+<span><span class="co">#&gt; [10] "Term_CINEB"            "Calls_MMF"             "Time_MMF"             </span></span>
+<span><span class="co">#&gt; [13] "Term_MMF"</span></span></code></pre></div>
 <p><code><a href="../reference/bc_read_benchmark.html">bc_read_benchmark()</a></code> reads the CSV, converts the system
 column to a factor, and attaches metadata attributes that downstream
 functions use automatically.</p>
@@ -154,19 +150,16 @@ system-method pair becomes its own row.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bench_long</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 21</span></span></span>
-<span><span class="co">#&gt;   system_id Reaction            Formula N_Atoms Total_Mass   E_Diff Barrier_Diff</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 01_hcn    bold('01:')~HCN*'-… CHN           3       27.0  3.00<span style="color: #949494;">e</span><span style="color: #BB0000;">-6</span>  -<span style="color: #BB0000;">0.000</span><span style="color: #BB0000; text-decoration: underline;">009</span><span style="color: #BB0000;">00</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 01_hcn    bold('01:')~HCN*'-… CHN           3       27.0  3.00<span style="color: #949494;">e</span><span style="color: #BB0000;">-6</span>  -<span style="color: #BB0000;">0.000</span><span style="color: #BB0000; text-decoration: underline;">009</span><span style="color: #BB0000;">00</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 02_hcch   bold('02:')~HCCH*'… C2H2          4       26.0 -<span style="color: #BB0000;">5.84</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-4</span>  -<span style="color: #BB0000;">0.000</span><span style="color: #BB0000; text-decoration: underline;">595</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 02_hcch   bold('02:')~HCCH*'… C2H2          4       26.0 -<span style="color: #BB0000;">5.84</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-4</span>  -<span style="color: #BB0000;">0.000</span><span style="color: #BB0000; text-decoration: underline;">595</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 03_h2co   bold('03:')~H[2]*C… CH2O          4       30.0 -<span style="color: #BB0000;">2.70</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  -<span style="color: #BB0000;">0.002</span><span style="color: #BB0000; text-decoration: underline;">71</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> 03_h2co   bold('03:')~H[2]*C… CH2O          4       30.0 -<span style="color: #BB0000;">2.70</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  -<span style="color: #BB0000;">0.002</span><span style="color: #BB0000; text-decoration: underline;">71</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: RMSD_Saddle &lt;dbl&gt;, Ratio_Calls &lt;dbl&gt;, Ratio_Time &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   method &lt;fct&gt;, RMSD_Init_Final &lt;dbl&gt;, Barrier &lt;dbl&gt;, Force &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   Path_Len &lt;dbl&gt;, count &lt;int&gt;, time &lt;dbl&gt;, term_reason &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   Force_Init &lt;dbl&gt;, Force_Final &lt;dbl&gt;, success &lt;lgl&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 11</span></span></span>
+<span><span class="co">#&gt;   system_id Reaction     Formula N_Atoms Total_Mass method RMSD_Init_Final count</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 01_hcn    bold('01:')… CHN           3       27.0 CINEB            0.136   754</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 01_hcn    bold('01:')… CHN           3       27.0 MMF              0.136   163</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 02_hcch   bold('02:')… C2H2          4       26.0 CINEB            0.344   258</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 02_hcch   bold('02:')… C2H2          4       26.0 MMF              0.344   180</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 03_h2co   bold('03:')… CH2O          4       30.0 CINEB            0.314   706</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> 03_h2co   bold('03:')… CH2O          4       30.0 MMF              0.314   386</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 more variables: time &lt;lgl&gt;, term_reason &lt;chr&gt;, success &lt;lgl&gt;</span></span></span></code></pre></div>
 <p>The <code>method_levels</code> argument controls factor ordering. The
 first level (<code>"CINEB"</code>) becomes the reference method in the
 model, so all treatment effects are reported relative to CI-NEB.</p>
@@ -174,10 +167,10 @@ model, so all treatment effects are reported relative to CI-NEB.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bench_long</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"system_id"</span>, <span class="st">"method"</span>, <span class="st">"count"</span>, <span class="st">"time"</span>, <span class="st">"success"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; tibble [48 × 5] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;  $ system_id: Factor w/ 24 levels "01_hcn","02_hcch",..: 1 1 2 2 3 3 14 14 4 4 ...</span></span>
+<span><span class="co">#&gt;  $ system_id: Factor w/ 24 levels "01_hcn","02_hcch",..: 1 1 2 2 3 3 4 4 5 5 ...</span></span>
 <span><span class="co">#&gt;  $ method   : Factor w/ 2 levels "CINEB","MMF": 1 2 1 2 1 2 1 2 1 2 ...</span></span>
-<span><span class="co">#&gt;  $ count    : int [1:48] 202 177 546 300 882 374 298 135 330 228 ...</span></span>
-<span><span class="co">#&gt;  $ time     : num [1:48] 6.06 5.66 11.13 8.23 16.45 ...</span></span>
+<span><span class="co">#&gt;  $ count    : int [1:48] 754 163 258 180 706 386 250 86 178 88 ...</span></span>
+<span><span class="co">#&gt;  $ time     : logi [1:48] NA NA NA NA NA NA ...</span></span>
 <span><span class="co">#&gt;  $ success  : logi [1:48] TRUE TRUE TRUE TRUE TRUE TRUE ...</span></span></code></pre></div>
 <p>Expected output (abbreviated):</p>
 <pre><code>tibble [48 x ...] (S3: tbl_df/tbl/data.frame)

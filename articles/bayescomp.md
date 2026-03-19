@@ -55,17 +55,13 @@ bench_raw <- bc_read_benchmark(
 )
 
 dim(bench_raw)
-#> [1] 24 27
+#> [1] 24 13
 names(bench_raw)
 #>  [1] "System"                "Reaction"              "Formula"              
-#>  [4] "N_Atoms"               "Total_Mass"            "E_Diff"               
-#>  [7] "Barrier_Diff"          "RMSD_Saddle"           "Ratio_Calls"          
-#> [10] "Ratio_Time"            "RMSD_Init_Final_CINEB" "RMSD_Init_Final_MMF"  
-#> [13] "Barrier_CINEB"         "Force_CINEB"           "Path_Len_CINEB"       
-#> [16] "Calls_CINEB"           "Time_CINEB"            "Term_CINEB"           
-#> [19] "Force_Init_CINEB"      "Force_Final_CINEB"     "Barrier_MMF"          
-#> [22] "Force_MMF"             "Calls_MMF"             "Time_MMF"             
-#> [25] "Term_MMF"              "Force_Init_MMF"        "Force_Final_MMF"
+#>  [4] "N_Atoms"               "Total_Mass"            "RMSD_Init_Final_CINEB"
+#>  [7] "RMSD_Init_Final_MMF"   "Calls_CINEB"           "Time_CINEB"           
+#> [10] "Term_CINEB"            "Calls_MMF"             "Time_MMF"             
+#> [13] "Term_MMF"
 ```
 
 [`bc_read_benchmark()`](https://haozeke.github.io/bayescomp/reference/bc_read_benchmark.md)
@@ -91,19 +87,16 @@ bench_long <- bc_pivot_long(
 )
 
 head(bench_long)
-#> # A tibble: 6 × 21
-#>   system_id Reaction            Formula N_Atoms Total_Mass   E_Diff Barrier_Diff
-#>   <fct>     <chr>               <chr>     <int>      <dbl>    <dbl>        <dbl>
-#> 1 01_hcn    bold('01:')~HCN*'-… CHN           3       27.0  3.00e-6  -0.00000900
-#> 2 01_hcn    bold('01:')~HCN*'-… CHN           3       27.0  3.00e-6  -0.00000900
-#> 3 02_hcch   bold('02:')~HCCH*'… C2H2          4       26.0 -5.84e-4  -0.000595  
-#> 4 02_hcch   bold('02:')~HCCH*'… C2H2          4       26.0 -5.84e-4  -0.000595  
-#> 5 03_h2co   bold('03:')~H[2]*C… CH2O          4       30.0 -2.70e-3  -0.00271   
-#> 6 03_h2co   bold('03:')~H[2]*C… CH2O          4       30.0 -2.70e-3  -0.00271   
-#> # ℹ 14 more variables: RMSD_Saddle <dbl>, Ratio_Calls <dbl>, Ratio_Time <dbl>,
-#> #   method <fct>, RMSD_Init_Final <dbl>, Barrier <dbl>, Force <dbl>,
-#> #   Path_Len <dbl>, count <int>, time <dbl>, term_reason <chr>,
-#> #   Force_Init <dbl>, Force_Final <dbl>, success <lgl>
+#> # A tibble: 6 × 11
+#>   system_id Reaction     Formula N_Atoms Total_Mass method RMSD_Init_Final count
+#>   <fct>     <chr>        <chr>     <int>      <dbl> <fct>            <dbl> <int>
+#> 1 01_hcn    bold('01:')… CHN           3       27.0 CINEB            0.136   754
+#> 2 01_hcn    bold('01:')… CHN           3       27.0 MMF              0.136   163
+#> 3 02_hcch   bold('02:')… C2H2          4       26.0 CINEB            0.344   258
+#> 4 02_hcch   bold('02:')… C2H2          4       26.0 MMF              0.344   180
+#> 5 03_h2co   bold('03:')… CH2O          4       30.0 CINEB            0.314   706
+#> 6 03_h2co   bold('03:')… CH2O          4       30.0 MMF              0.314   386
+#> # ℹ 3 more variables: time <lgl>, term_reason <chr>, success <lgl>
 ```
 
 The `method_levels` argument controls factor ordering. The first level
@@ -115,10 +108,10 @@ You can inspect the structure to make sure it looks right:
 ``` r
 str(bench_long[, c("system_id", "method", "count", "time", "success")])
 #> tibble [48 × 5] (S3: tbl_df/tbl/data.frame)
-#>  $ system_id: Factor w/ 24 levels "01_hcn","02_hcch",..: 1 1 2 2 3 3 14 14 4 4 ...
+#>  $ system_id: Factor w/ 24 levels "01_hcn","02_hcch",..: 1 1 2 2 3 3 4 4 5 5 ...
 #>  $ method   : Factor w/ 2 levels "CINEB","MMF": 1 2 1 2 1 2 1 2 1 2 ...
-#>  $ count    : int [1:48] 202 177 546 300 882 374 298 135 330 228 ...
-#>  $ time     : num [1:48] 6.06 5.66 11.13 8.23 16.45 ...
+#>  $ count    : int [1:48] 754 163 258 180 706 386 250 86 178 88 ...
+#>  $ time     : logi [1:48] NA NA NA NA NA NA ...
 #>  $ success  : logi [1:48] TRUE TRUE TRUE TRUE TRUE TRUE ...
 ```
 
