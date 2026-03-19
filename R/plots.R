@@ -1,4 +1,4 @@
-#' @srrstats {BS4.2} Visual posterior predictive checks and LOO-PIT
+#' @srrstats {BS6.3} Visual posterior distributional estimates and LOO-PIT
 #' @srrstats {BS6.1} brmsfit has plot method. bc_plot_* adds specialization.
 #' @srrstats {BS6.2} bc_plot_trace() plots posterior sequences.
 #' @srrstats {BS6.3} bc_plot_shape(), bc_plot_conditional() plot posteriors.

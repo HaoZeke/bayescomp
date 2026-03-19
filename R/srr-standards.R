@@ -158,7 +158,9 @@
 #' @srrstats {BS3.2} Not applicable: see BS3.1.
 #' @srrstats {BS4.0} NUTS/HMC documented via brms reference.
 #' @srrstats {BS4.1} Comparison in JOSS paper.
-#' @srrstats {BS4.2} bc_pp_check(), bc_plot_loo_pit(), bc_dharma_check().
+#' @srrstats {BS4.3} bc_check_convergence() documented with configurable
+#'   max_rhat and min_ess thresholds. bc_pp_check(), bc_plot_loo_pit(), and
+#'   bc_dharma_check() provide posterior predictive validation.
 #' @srrstats {BS4.3} bc_check_convergence() with configurable thresholds.
 #' @srrstats {BS4.4} Not applicable: NUTS does not support early stopping.
 #' @srrstats {BS4.5} bc_check_convergence() warns on non-convergence.

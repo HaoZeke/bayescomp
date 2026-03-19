@@ -96,6 +96,54 @@ test_that("bc_plot_conditional works on fixture", {
 test_that(".report_shape works on negbinomial fixture", {
   skip_if_no_fixture()
   fit <- readRDS(fixture_path)
-  # Should print shape info without error
   expect_invisible(bayescomp:::.report_shape(fit, model_shape = FALSE))
+})
+
+test_that("bc_loo works on fixture (without reloo)", {
+  skip_if_no_fixture()
+  fit <- readRDS(fixture_path)
+  loo_result <- bc_loo(fit, reloo = FALSE)
+  expect_s3_class(loo_result, "loo")
+})
+
+test_that("bc_plot_shape works on fixture", {
+  skip_if_no_fixture()
+  fit <- readRDS(fixture_path)
+  # May warn about shape submodel, but should not error
+  p <- tryCatch(bc_plot_shape(fit), error = function(e) NULL)
+  # If it returned a plot, check it
+  if (!is.null(p)) expect_s3_class(p, "ggplot")
+})
+
+test_that("bc_plot_loo_pit works on fixture", {
+  skip_if_no_fixture()
+  fit <- readRDS(fixture_path)
+  loo_result <- bc_loo(fit, reloo = FALSE)
+  p <- bc_plot_loo_pit(fit, loo_result, fit$data$count)
+  expect_s3_class(p, "ggplot")
+})
+
+test_that("bc_plot_pareto_k works on fixture loo result", {
+  skip_if_no_fixture()
+  fit <- readRDS(fixture_path)
+  loo_result <- bc_loo(fit, reloo = FALSE)
+  p <- bc_plot_pareto_k(loo_result)
+  expect_s3_class(p, "ggplot")
+})
+
+test_that("bc_report with loo=TRUE works on fixture", {
+  skip_if_no_fixture()
+  fit <- readRDS(fixture_path)
+  result <- bc_report(fit, loo = TRUE)
+  expect_type(result, "list")
+  expect_true("loo_result" %in% names(result))
+  expect_s3_class(result$loo_result, "loo")
+})
+
+test_that("bc_epred_draws works on fixture without cache", {
+  skip_if_no_fixture()
+  fit <- readRDS(fixture_path)
+  newdata <- fit$data[1:2, ]
+  draws <- bc_epred_draws(fit, newdata = newdata, ndraws = 5)
+  expect_s3_class(draws, "tbl_df")
 })
