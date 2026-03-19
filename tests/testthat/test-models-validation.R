@@ -408,13 +408,15 @@ test_that("bc_fit_design appends censoring to formula", {
   data <- bc_simulate_benchmark(n_systems = 5, n_methods = 2,
                                 cens_threshold = 400, seed = 440)
   formula <- brms::bf(count ~ method + (1 | system_id))
-  expect_error(
+  err <- tryCatch(
     bc_fit_design(data, formula = formula,
                   family = brms::negbinomial(),
                   cens_col = "censored",
                   backend = "nonexistent_backend", chains = 1, iter = 10),
-    NULL
+    error = function(e) e
   )
+  # Should NOT fail at cens_col validation
+  expect_false(grepl("not found in data", conditionMessage(err)))
 })
 
 # --- Coverage: bc_read_benchmark wide format column validation ---
