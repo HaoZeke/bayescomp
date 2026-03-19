@@ -1,4 +1,3 @@
-#' @srrstats {BS2.0} bc_check_convergence verifies Rhat and ESS
 #' @srrstats {BS4.3} bc_check_convergence() with configurable thresholds.
 #' @srrstats {BS4.5} bc_check_convergence() warns on non-convergence.
 #' @srrstats {BS5.3} bc_check_convergence() returns convergence statistics.

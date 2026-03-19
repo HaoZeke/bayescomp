@@ -137,7 +137,6 @@
 #' @srrstats {BS1.4} bc_fit() diagnostics parameter controls convergence
 #'   checking. Documented with examples.
 #' @srrstats {BS1.5} Single convergence checker (Rhat + ESS). Standard.
-#' @srrstats {BS2.0} bc_check_convergence() checks Rhat and ESS.
 #' @srrstats {BS2.1} bc_validate() ensures dimensional consistency.
 #' @srrstats {BS2.1a} test-data_prep.R tests dimensional validation.
 #' @srrstats {BS2.2} Prior validation delegated to brms::brm().
