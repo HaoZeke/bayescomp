@@ -961,3 +961,14 @@ bc_plot_scatter_comparison <- function(data,
 
   p
 }
+
+#' @srrstats {RE6.0} bc_plot_conditional provides default visualization.
+#' @srrstats {RE6.1} brmsfit dispatches to brms::plot.brmsfit.
+#' @srrstats {RE6.2} bc_plot_conditional shows fitted + CrI + raw data.
+#' @srrstats {RE6.3} bc_plot_conditional(show_extrapolation) distinguishes.
+#' @srrstats {BS6.0} brmsfit has print method. bc_report adds formatting.
+#' @srrstats {BS6.2} bc_plot_trace plots posterior sequences.
+#' @srrstats {BS6.4} bc_report provides summary.
+#' @srrstats {BS6.5} Combined plots possible via patchwork.
+#' @noRd
+NULL

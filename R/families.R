@@ -138,3 +138,11 @@ bc_default_priors <- function(family = brms::negbinomial(),
 
   priors
 }
+
+#' @srrstats {G2.3} Character params use match.arg in bc_suggest_family.
+#' @srrstats {BS2.2} Prior validation delegated to brms::brm.
+#' @srrstats {BS2.3} Prior parameter lengths validated by brms.
+#' @srrstats {BS2.4} Prior dimensions validated by brms against model.
+#' @srrstats {BS2.5} bc_default_priors uses well-defined distributions.
+#' @noRd
+NULL

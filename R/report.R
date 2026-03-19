@@ -73,3 +73,9 @@ bc_report <- function(model, width = 0.95, loo = TRUE) {
     loo_result = loo_result
   ))
 }
+
+#' @srrstats {RE4.17} bc_report summarizes model parameters.
+#' @srrstats {RE4.18} bc_effect_table provides formatted table.
+#' @srrstats {BS3.0} Missing value assumptions documented in bc_validate.
+#' @noRd
+NULL

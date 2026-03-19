@@ -388,3 +388,26 @@ bc_fit_suite <- function(data,
 
   models
 }
+
+#' @srrstats {RE1.0} bc_fit constructs formulas. bc_fit_design accepts bf().
+#' @srrstats {RE1.1} Formula construction documented in bc_fit.
+#' @srrstats {RE1.2} Predictor types documented in bc_validate.
+#' @srrstats {RE1.3} brmsfit retains input data and column names.
+#' @srrstats {RE1.4} Model assumptions documented in vignettes.
+#' @srrstats {RE3.0} bc_check_convergence warns on non-convergence.
+#' @srrstats {RE3.1} bc_fit(diagnostics=FALSE) suppresses messages.
+#' @srrstats {RE3.2} Default thresholds documented.
+#' @srrstats {RE3.3} bc_check_convergence allows explicit thresholds.
+#' @srrstats {RE4.0} Returns brmsfit objects.
+#' @srrstats {BS1.3} Computational params documented in bc_fit.
+#' @srrstats {BS1.3a} brms supports previous fits via init.
+#' @srrstats {BS1.3b} bc_fit backend selects cmdstanr or rstan.
+#' @srrstats {BS1.4} diagnostics parameter controls convergence checking.
+#' @srrstats {BS2.1} bc_validate ensures dimensional consistency.
+#' @srrstats {BS2.6} Computational params validated by brms.
+#' @srrstats {BS2.7} bc_fit passes seed to brms::brm.
+#' @srrstats {BS2.12} diagnostics parameter controls verbosity.
+#' @srrstats {BS2.13} bc_fit(diagnostics=FALSE) suppresses messages.
+#' @srrstats {BS2.15} cli::cli_abort throws catchable rlang conditions.
+#' @noRd
+NULL

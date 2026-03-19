@@ -197,3 +197,10 @@ bc_pairwise_contrasts <- function(model, method_col = "method", width = 0.95) {
 
   result
 }
+
+#' @srrstats {RE4.2} bc_summarize_effects provides response-scale summaries.
+#' @srrstats {RE4.3} Bayesian CrI via bc_summarize_effects.
+#' @srrstats {RE4.17} bc_report provides summary. brms::print also works.
+#' @srrstats {RE4.18} bc_effect_table provides formatted effect table.
+#' @noRd
+NULL

@@ -204,3 +204,12 @@ bc_loo_compare <- function(..., model_names = NULL) {
 
   result
 }
+
+#' @srrstats {BS5.3} bc_check_convergence returns convergence statistics.
+#' @srrstats {BS5.5} bc_check_convergence()$problems returns diagnostics.
+#' @srrstats {BS4.5} bc_check_convergence warns on non-convergence.
+#' @srrstats {BS4.7} Convergence thresholds tested in test suite.
+#' @srrstats {RE4.7} bc_check_convergence returns convergence stats.
+#' @srrstats {RE4.11} bc_loo provides elpd goodness-of-fit.
+#' @noRd
+NULL

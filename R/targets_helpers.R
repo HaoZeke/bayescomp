@@ -117,3 +117,8 @@ bc_tar_pipeline <- function(data_path,
     ))
   )
 }
+
+#' @srrstats {G5.11} No large external datasets needed for tests.
+#' @srrstats {G5.11a} No downloads needed for tests.
+#' @noRd
+NULL

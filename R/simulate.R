@@ -129,3 +129,18 @@ bc_simulate_benchmark <- function(n_systems = 20,
 
   result
 }
+
+#' @srrstats {G5.4} test-recovery.R: parameter recovery against known DGP.
+#' @srrstats {G5.4a} Correctness tested against simple known cases.
+#' @srrstats {G5.5} Fixed seeds in test-recovery.R.
+#' @srrstats {G5.6} 8 parameter recovery tests across families.
+#' @srrstats {G5.6a} Recovery tests use 90% CrI as tolerance.
+#' @srrstats {G5.6b} Different seeds per family (42-49).
+#' @srrstats {BS7.0} test-recovery.R: 8 parameter recovery tests.
+#' @srrstats {BS7.2} Posterior recovery with known DGP verified.
+#' @srrstats {BS7.4} Fitted values on same scale as inputs.
+#' @srrstats {G5.9} test-recovery.R tests stochastic behaviour.
+#' @srrstats {G5.10} Extended tests gated by skip_on_cran.
+#' @srrstats {G5.12} test-recovery.R documents skip conditions.
+#' @noRd
+NULL

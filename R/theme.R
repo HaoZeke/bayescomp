@@ -144,3 +144,8 @@ theme_bayescomp <- function(base_size = 14, base_family = "sans") {
       strip.text = ggplot2::element_text(face = "bold")
     )
 }
+
+#' @srrstats {BS6.1} Plot methods for brmsfit objects.
+#' @srrstats {RE6.0} Default plot via bc_plot_conditional.
+#' @noRd
+NULL

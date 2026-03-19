@@ -341,3 +341,25 @@ bc_validate <- function(data,
 
   invisible(data)
 }
+
+#' @srrstats {G2.0a} Documentation specifies expected column names and types.
+#' @srrstats {G2.1a} All param docs specify expected types.
+#' @srrstats {G2.2} bc_validate rejects data with fewer than 2 method levels.
+#' @srrstats {G2.3b} Column name matching is case-sensitive.
+#' @srrstats {G2.5} method/system_id must be unordered factors.
+#' @srrstats {G2.6} bc_validate checks are class-agnostic.
+#' @srrstats {G2.7} bc_read_benchmark accepts CSV paths and data.frames.
+#' @srrstats {G2.8} bc_validate converts inputs to standard form.
+#' @srrstats {G2.10} Column extraction uses [[]] and dplyr::all_of().
+#' @srrstats {G2.11} Non-standard column classes caught by is.numeric.
+#' @srrstats {G2.12} List columns cause brms errors with informative messages.
+#' @srrstats {G2.14b} allow_negative relaxes negativity checks.
+#' @srrstats {G2.14c} Not applicable: no imputation.
+#' @srrstats {G5.8a} Zero-length data: bc_validate errors on empty data.
+#' @srrstats {G5.8b} Unsupported types: bc_validate errors on non-numeric.
+#' @srrstats {G5.8c} All-NA: bc_validate catches and reports.
+#' @srrstats {RE2.1} bc_validate handles NA/NaN/Inf with distinct messages.
+#' @srrstats {RE2.2} Missing values rejected in both response and predictors.
+#' @srrstats {RE7.2} test-data_prep.R verifies names/levels retained.
+#' @noRd
+NULL

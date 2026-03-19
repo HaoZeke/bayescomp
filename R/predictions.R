@@ -59,3 +59,9 @@ bc_epred_draws <- function(model, newdata, file = NULL, ndraws = NULL, ...) {
 
   result
 }
+
+#' @srrstats {BS5.0} brmsfit includes seed.
+#' @srrstats {BS5.1} brmsfit includes input data and formula.
+#' @srrstats {BS5.2} brmsfit includes prior specification.
+#' @noRd
+NULL
