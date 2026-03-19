@@ -1,3 +1,4 @@
+#' @srrstats {RE4.0} Link-aware effect summaries document model assumptions
 #' Summarize treatment effects on the response scale
 #'
 #' Extracts posterior draws for the method effect and transforms them to

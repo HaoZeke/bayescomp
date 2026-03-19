@@ -1,3 +1,4 @@
+#' @srrstats {BS4.2} Visual posterior predictive checks and LOO-PIT
 #' Conditional effects plot with raw data overlay
 #'
 #' Generates a publication-quality plot of conditional effects from a fitted

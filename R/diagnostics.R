@@ -1,3 +1,4 @@
+#' @srrstats {BS2.0} bc_check_convergence verifies Rhat and ESS
 #' Check convergence diagnostics for a brmsfit
 #'
 #' Examines Rhat and effective sample size (ESS) for all parameters and

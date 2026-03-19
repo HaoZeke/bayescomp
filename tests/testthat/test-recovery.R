@@ -1,6 +1,10 @@
 test_that("parameter recovery: negbinomial", {
   skip_on_cran()
   skip_if_not_installed("cmdstanr")
+  skip_if_not(
+    tryCatch({ cmdstanr::cmdstan_path(); TRUE }, error = function(e) FALSE),
+    "CmdStan not configured"
+  )
 
   true_eff <- log(0.5)
   data <- bc_simulate_benchmark(
@@ -25,6 +29,10 @@ test_that("parameter recovery: negbinomial", {
 test_that("parameter recovery: negbinomial with censoring", {
   skip_on_cran()
   skip_if_not_installed("cmdstanr")
+  skip_if_not(
+    tryCatch({ cmdstanr::cmdstan_path(); TRUE }, error = function(e) FALSE),
+    "CmdStan not configured"
+  )
 
   true_eff <- log(0.5)
   data <- bc_simulate_benchmark(
@@ -52,6 +60,10 @@ test_that("parameter recovery: negbinomial with censoring", {
 test_that("parameter recovery: Gamma", {
   skip_on_cran()
   skip_if_not_installed("cmdstanr")
+  skip_if_not(
+    tryCatch({ cmdstanr::cmdstan_path(); TRUE }, error = function(e) FALSE),
+    "CmdStan not configured"
+  )
 
   true_eff <- log(0.7)
   data <- bc_simulate_benchmark(
@@ -76,6 +88,10 @@ test_that("parameter recovery: Gamma", {
 test_that("parameter recovery: Bernoulli", {
   skip_on_cran()
   skip_if_not_installed("cmdstanr")
+  skip_if_not(
+    tryCatch({ cmdstanr::cmdstan_path(); TRUE }, error = function(e) FALSE),
+    "CmdStan not configured"
+  )
 
   true_eff <- 0.8  # logit scale (smaller for better recovery)
   data <- bc_simulate_benchmark(
@@ -100,6 +116,10 @@ test_that("parameter recovery: Bernoulli", {
 test_that("parameter recovery: Student-t", {
   skip_on_cran()
   skip_if_not_installed("cmdstanr")
+  skip_if_not(
+    tryCatch({ cmdstanr::cmdstan_path(); TRUE }, error = function(e) FALSE),
+    "CmdStan not configured"
+  )
 
   true_eff <- -0.5  # identity scale
   data <- bc_simulate_benchmark(
@@ -125,6 +145,10 @@ test_that("parameter recovery: Student-t", {
 test_that("bc_loo_compare prefers negbinomial over Poisson on overdispersed data", {
   skip_on_cran()
   skip_if_not_installed("cmdstanr")
+  skip_if_not(
+    tryCatch({ cmdstanr::cmdstan_path(); TRUE }, error = function(e) FALSE),
+    "CmdStan not configured"
+  )
 
   data <- bc_simulate_benchmark(
     n_systems = 20, n_methods = 2,
@@ -153,6 +177,10 @@ test_that("bc_loo_compare prefers negbinomial over Poisson on overdispersed data
 test_that("bc_fit_design with interaction formula recovers effect", {
   skip_on_cran()
   skip_if_not_installed("cmdstanr")
+  skip_if_not(
+    tryCatch({ cmdstanr::cmdstan_path(); TRUE }, error = function(e) FALSE),
+    "CmdStan not configured"
+  )
 
   true_eff <- log(0.6)
   data <- bc_simulate_benchmark(
@@ -180,6 +208,10 @@ test_that("bc_fit_design with interaction formula recovers effect", {
 test_that("bc_pairwise_contrasts returns correct number for 3 methods", {
   skip_on_cran()
   skip_if_not_installed("cmdstanr")
+  skip_if_not(
+    tryCatch({ cmdstanr::cmdstan_path(); TRUE }, error = function(e) FALSE),
+    "CmdStan not configured"
+  )
   skip_if_not_installed("marginaleffects")
 
   data <- bc_simulate_benchmark(

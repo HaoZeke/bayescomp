@@ -1,3 +1,4 @@
+#' @srrstats {BS2.7} bc_fit passes seed parameter to brms::brm
 #' Fit a Bayesian benchmark comparison model
 #'
 #' Wraps [brms::brm()] with sensible defaults for comparing computational

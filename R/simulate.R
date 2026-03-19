@@ -1,3 +1,4 @@
+#' @srrstats {BS7.0} bc_simulate_benchmark enables parameter recovery testing
 #' Simulate benchmark comparison data
 #'
 #' Generates synthetic benchmark data from a known data-generating process

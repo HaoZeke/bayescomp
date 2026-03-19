@@ -1,3 +1,4 @@
+#' @srrstats {G2.13} bc_validate checks NA in required columns
 #' Read and validate benchmark data
 #'
 #' Reads a CSV file containing benchmark results for two or more computational

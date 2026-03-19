@@ -8,6 +8,10 @@ on:
 
 name: lychee link check
 
+concurrency:
+  group: lychee-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions: read-all
 
 jobs:
@@ -23,6 +27,5 @@ jobs:
             --no-progress
             '*.md'
             'vignettes/*.Rmd'
-            'inst/paper/*.Rnw'
             'DESCRIPTION'
           fail: false

@@ -1,3 +1,4 @@
+#' @srrstats {BS1.0} bc_default_priors documents prior distributions
 #' Suggest appropriate brms family based on response variable
 #'
 #' Examines the response vector and suggests the most appropriate brms
