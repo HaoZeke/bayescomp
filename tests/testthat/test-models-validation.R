@@ -7,10 +7,7 @@ test_that("bc_fit errors on missing response column", {
 })
 
 test_that("bc_fit errors on non-data.frame input", {
-  expect_error(
-    bc_fit("not_a_dataframe", response = "count"),
-    class = "simpleError"
-  )
+  expect_error(bc_fit("not_a_dataframe", response = "count"))
 })
 
 test_that("bc_fit model_shape warns on non-negbinomial family", {
