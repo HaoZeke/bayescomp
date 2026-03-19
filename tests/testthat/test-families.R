@@ -108,3 +108,49 @@ test_that("bc_simulate_benchmark handles 3+ methods", {
   expect_equal(nlevels(data$method), 3)
   expect_equal(nrow(data), 15)
 })
+
+test_that("bc_suggest_family errors on empty vector", {
+  expect_error(bc_suggest_family(numeric(0)), "empty or all NA")
+})
+
+test_that("bc_suggest_family errors on all-NA vector", {
+  expect_error(bc_suggest_family(c(NA, NA, NA)), "empty or all NA")
+})
+
+test_that("bc_suggest_family handles single value", {
+  fam <- bc_suggest_family(42)
+  # Single non-negative integer: detected as count
+
+  expect_equal(fam$family, "negbinomial")
+})
+
+test_that("bc_suggest_family type='real' returns student for positive data", {
+  fam <- bc_suggest_family(c(1.5, 2.3, 0.8), type = "real")
+  expect_equal(fam$family, "student")
+  expect_equal(fam$link, "identity")
+})
+
+test_that("bc_suggest_family type='gaussian' with positive continuous warns", {
+  y <- c(1.5, 2.3, 0.8, 3.1)
+  expect_warning(bc_suggest_family(y, type = "gaussian"), "positive")
+})
+
+test_that("bc_default_priors with student family includes nu prior", {
+  fam <- brms::student(link = "identity")
+  priors <- bc_default_priors(family = fam)
+  expect_s3_class(priors, "brmsprior")
+  expect_true(any(priors$class == "nu"))
+})
+
+test_that("bc_default_priors with has_spline=TRUE adds sds prior", {
+  priors_no <- bc_default_priors(has_spline = FALSE)
+  priors_yes <- bc_default_priors(has_spline = TRUE)
+  expect_true(any(priors_yes$class == "sds"))
+  expect_false(any(priors_no$class == "sds"))
+})
+
+test_that("bc_default_priors with Gamma family includes shape prior", {
+  fam <- brms::brmsfamily("Gamma", link = "log")
+  priors <- bc_default_priors(family = fam)
+  expect_true(any(priors$class == "shape"))
+})

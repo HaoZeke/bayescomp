@@ -168,3 +168,95 @@ test_that("bc_pivot_long creates censoring column", {
     0L
   )
 })
+
+test_that("bc_read_benchmark with format='long' sets bc_format attribute", {
+  # Create a temporary long-format CSV
+  tmp <- tempfile(fileext = ".csv")
+  df <- data.frame(
+    System = c("s1", "s1", "s2", "s2"),
+    Calls = c(100, 50, 200, 150),
+    method = c("A", "B", "A", "B"),
+    stringsAsFactors = FALSE
+  )
+  utils::write.csv(df, tmp, row.names = FALSE)
+  on.exit(unlink(tmp))
+
+  result <- bc_read_benchmark(tmp, format = "long", system_col = "System")
+  expect_s3_class(result, "tbl_df")
+  expect_equal(attr(result, "bc_format"), "long")
+  expect_true(is.factor(result$System))
+})
+
+test_that("bc_pivot_long without success_col skips success column", {
+  wide <- data.frame(
+    System = c("sys_a", "sys_b"),
+    Calls_A = c(100, 200),
+    Calls_B = c(50, 150),
+    stringsAsFactors = FALSE
+  )
+  attr(wide, "bc_system_col") <- "System"
+  attr(wide, "bc_count_col") <- "Calls"
+  attr(wide, "bc_format") <- "wide"
+
+  long <- bc_pivot_long(
+    wide,
+    method_pattern = "_(A|B)$",
+    method_levels = c("A", "B"),
+    success_col = NULL
+  )
+
+  expect_equal(nrow(long), 4)
+  expect_true("count" %in% names(long))
+  expect_false("success" %in% names(long))
+})
+
+test_that("bc_validate with require_time=TRUE when time column exists", {
+  data_with_time <- data.frame(
+    count = c(100, 50, 200, 150),
+    method = factor(rep(c("A", "B"), 2)),
+    system_id = factor(rep(c("s1", "s2"), each = 2)),
+    time = c(1.0, 0.5, 2.0, 1.5)
+  )
+  expect_invisible(bc_validate(data_with_time, require_time = TRUE))
+})
+
+test_that("bc_validate with require_time=TRUE errors when time column missing", {
+  data_no_time <- data.frame(
+    count = c(100, 50, 200, 150),
+    method = factor(rep(c("A", "B"), 2)),
+    system_id = factor(rep(c("s1", "s2"), each = 2))
+  )
+  expect_error(bc_validate(data_no_time, require_time = TRUE), "Missing")
+})
+
+test_that("bc_filter_matching warns when all systems filtered out", {
+  data <- data.frame(
+    system_id = factor(rep(c("s1", "s2"), each = 2)),
+    method = factor(rep(c("A", "B"), 2)),
+    count = c(100, 50, 200, 150),
+    barrier = c(1.0, 5.0, 2.0, 8.0),
+    success = c(TRUE, TRUE, TRUE, TRUE)
+  )
+  expect_warning(
+    bc_filter_matching(data, compare_col = "barrier", tol = 0.001),
+    "All.*systems filtered out"
+  )
+})
+
+test_that("bc_filter_matching without success column (require_success=FALSE)", {
+  data <- data.frame(
+    system_id = factor(rep(c("s1", "s2", "s3"), each = 2)),
+    method = factor(rep(c("A", "B"), 3)),
+    count = c(100, 50, 200, 150, 300, 250),
+    barrier = c(1.0, 1.005, 2.0, 2.5, 3.0, 3.002)
+  )
+  # No success column present, require_success=FALSE
+  filtered <- bc_filter_matching(data, compare_col = "barrier",
+                                  tol = 0.01, require_success = FALSE)
+  expect_equal(length(unique(filtered$system_id)), 2)
+  expect_false("s2" %in% filtered$system_id)
+})
+
+test_that("bc_read_benchmark errors on non-existent file", {
+  expect_error(bc_read_benchmark("/nonexistent/file.csv"), "File not found")
+})
