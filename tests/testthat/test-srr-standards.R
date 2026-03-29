@@ -49,9 +49,10 @@ test_that("srr: different seeds produce structurally consistent output", {
 })
 
 test_that("srr: zero-length data errors informatively", {
+  # Zero rows with no factor levels -> single implicit level -> error
   empty <- data.frame(
     count = numeric(0),
-    method = factor(levels = c("A", "B")),
+    method = factor(),
     system_id = factor()
   )
   expect_error(bc_validate(empty), "at least 2 methods")
