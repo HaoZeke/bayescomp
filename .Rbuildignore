@@ -2,7 +2,7 @@
 ^docs$
 ^pixi\.toml$
 ^pixi\.lock$
-^\.pixi$
+^\.pixi
 ^_targets\.R$
 ^_targets$
 ^\.vault$
