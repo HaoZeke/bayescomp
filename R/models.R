@@ -44,7 +44,7 @@
 #' @param ... Additional arguments passed to [brms::brm()].
 #' @return A `brmsfit` object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data <- bc_simulate_benchmark(n_systems = 20)
 #' model <- bc_fit(data, response = "count")
 #' }
@@ -188,7 +188,7 @@ bc_fit <- function(data,
 #' @param ... Additional arguments passed to [brms::brm()].
 #' @return A `brmsfit` object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data <- bc_simulate_benchmark(n_systems = 20)
 #' formula <- brms::bf(count ~ method + (1 | system_id))
 #' model <- bc_fit_design(data, formula = formula)
@@ -341,7 +341,7 @@ bc_fit_design <- function(data,
 #' @param ... Additional arguments passed to [bc_fit()].
 #' @return A named list of `brmsfit` objects.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data <- bc_simulate_benchmark(n_systems = 20)
 #' models <- bc_fit_suite(data, count_col = "count",
 #'   time_col = NULL, success_col = NULL)
@@ -393,21 +393,60 @@ bc_fit_suite <- function(data,
 #' @srrstats {RE1.1} Formula construction documented in bc_fit.
 #' @srrstats {RE1.2} Predictor types documented in bc_validate.
 #' @srrstats {RE1.3} brmsfit retains input data and column names.
+#' @srrstats {RE1.3a} bayescomp wraps brms (Bayesian regression); not
+#'   OLS/WLS/GLS. Documented in vignettes and DESCRIPTION.
 #' @srrstats {RE1.4} Model assumptions documented in vignettes.
 #' @srrstats {RE3.0} bc_check_convergence warns on non-convergence.
 #' @srrstats {RE3.1} bc_fit(diagnostics=FALSE) suppresses messages.
 #' @srrstats {RE3.2} Default thresholds documented.
 #' @srrstats {RE3.3} bc_check_convergence allows explicit thresholds.
 #' @srrstats {RE4.0} Returns brmsfit objects.
+#' @srrstats {RE4.1} brmsfit objects support print(), summary(), plot()
+#'   for different output forms; bc_report() adds formatted text.
+#' @srrstats {RE4.4} Returns brmsfit class with default print/plot methods.
+#' @srrstats {RE4.5} brmsfit$residuals() returns residuals; not directly
+#'   applicable to count/Bayesian models but accessible via brms API.
+#' @srrstats {RE4.6} brms::predict() and brms::posterior_predict() return
+#'   predicted values; bc_epred_draws wraps tidybayes.
+#' @srrstats {RE4.8} brmsfit$formula contains model formula.
+#' @srrstats {RE4.9} brmsfit contains all parameters for prediction via
+#'   brms::predict() and brms::posterior_predict().
+#' @srrstats {RE4.10} brmsfit components documented in brms package;
+#'   bc_report() provides user-facing summary.
+#' @srrstats {RE4.12} bc_epred_draws and brms::predict extract predictions;
+#'   bc_summarize_effects extracts effect statistics.
+#' @srrstats {RE4.13} brmsfit$fit (stanfit), $data, $formula, $prior all
+#'   accessible; bc_summarize_effects extracts method effects.
+#' @srrstats {RE4.14} brms::summary.brmsfit() implements summary method.
+#' @srrstats {RE4.15} bc_summarize_effects provides CrI for effects;
+#'   brms::predict provides CrI for predictions.
+#' @srrstats {RE4.16} brmsfit residuals scaled by brms according to family
+#'   (response vs link scale); not reimplemented here.
 #' @srrstats {BS1.3} Computational params documented in bc_fit.
 #' @srrstats {BS1.3a} brms supports previous fits via init.
 #' @srrstats {BS1.3b} bc_fit backend selects cmdstanr or rstan.
 #' @srrstats {BS1.4} diagnostics parameter controls convergence checking.
 #' @srrstats {BS2.1} bc_validate ensures dimensional consistency.
+#' @srrstats {BS2.1a} test-data_prep.R tests effects of bc_validate
+#'   preprocessing on dimensional consistency.
 #' @srrstats {BS2.6} Computational params validated by brms.
 #' @srrstats {BS2.7} bc_fit passes seed to brms::brm.
+#' @srrstats {BS2.8} brms file parameter caches fitted models; subsequent
+#'   calls with same file= reuse previous results as starting point.
+#' @srrstats {BS2.9} brms/Stan starts each chain with different seed by
+#'   default (seed + chain_id offset).
+#' @srrstats {BS2.10} brms/Stan handles seed-per-chain internally; passing
+#'   identical seeds to chains is not possible via the brms API.
+#' @srrstats {BS2.11} bc_fit does not accept starting values directly;
+#'   brms init parameter handles this with appropriate naming.
 #' @srrstats {BS2.12} diagnostics parameter controls verbosity.
 #' @srrstats {BS2.13} bc_fit(diagnostics=FALSE) suppresses messages.
+#' @srrstats {BS2.14} bc_fit(diagnostics=FALSE) suppresses convergence
+#'   warnings; tested in test-models-validation.R.
 #' @srrstats {BS2.15} cli::cli_abort throws catchable rlang conditions.
+#' @srrstats {BS4.4} brms control(max_treedepth) limits computation;
+#'   Stan's NUTS sampler terminates on convergence criteria.
+#' @srrstats {BS4.6} test-recovery.R: convergence checker results
+#'   (bc_check_convergence) consistent with fixed-sample estimates.
 #' @noRd
 NULL

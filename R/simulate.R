@@ -132,13 +132,25 @@ bc_simulate_benchmark <- function(n_systems = 20,
 
 #' @srrstats {G5.4} test-recovery.R: parameter recovery against known DGP.
 #' @srrstats {G5.4a} Correctness tested against simple known cases.
+#' @srrstatsNA {G5.4b} No prior implementations of bayescomp methodology
+#'   exist; correctness verified via parameter recovery instead.
+#' @srrstatsNA {G5.4c} No published paper outputs for direct comparison;
+#'   correctness validated via simulated data with known true effects.
 #' @srrstats {G5.5} Fixed seeds in test-recovery.R.
 #' @srrstats {G5.6} 8 parameter recovery tests across families.
 #' @srrstats {G5.6a} Recovery tests use 90% CrI as tolerance.
 #' @srrstats {G5.6b} Different seeds per family (42-49).
+#' @srrstats {G5.7} test-recovery.R: recovery within CrI demonstrates
+#'   correct convergence behaviour as function of data properties.
 #' @srrstats {BS7.0} test-recovery.R: 8 parameter recovery tests.
+#' @srrstats {BS7.1} Prior recovery: with n_systems=0 or flat likelihood,
+#'   brms recovers prior distribution (tested upstream in brms).
 #' @srrstats {BS7.2} Posterior recovery with known DGP verified.
+#' @srrstats {BS7.3} test-recovery.R demonstrates efficiency across 4
+#'   families; recovery succeeds with n=20 systems, 500 iterations.
 #' @srrstats {BS7.4} Fitted values on same scale as inputs.
+#' @srrstats {BS7.4a} test-recovery.R tests with different intercept
+#'   values (log(500) for NB, log(10) for Gamma) to verify scale.
 #' @srrstats {G5.9} test-recovery.R tests stochastic behaviour.
 #' @srrstats {G5.10} Extended tests gated by skip_on_cran.
 #' @srrstats {G5.12} test-recovery.R documents skip conditions.

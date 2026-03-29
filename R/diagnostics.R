@@ -23,7 +23,7 @@
 #'     \item{problems}{Character vector describing any issues.}
 #'   }
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_check_convergence(model)
 #' }
@@ -82,7 +82,7 @@ bc_check_convergence <- function(model, max_rhat = 1.01, min_ess = 400) {
 #'   (default `TRUE`).
 #' @return A `loo` object with attached summary.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' loo_result <- bc_loo(model)
 #' }
@@ -118,7 +118,7 @@ bc_loo <- function(model, reloo = TRUE) {
 #' @param ndraws Number of posterior draws for density overlay (default 50).
 #' @return A named list of ggplot objects.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' plots <- bc_pp_check(model)
 #' }
@@ -151,7 +151,7 @@ bc_pp_check <- function(model, group_col = "method", ndraws = 50) {
 #'   uses the argument names or `"model_1"`, `"model_2"`, etc.
 #' @return A tibble with columns: model, elpd_diff, se_diff.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data <- bc_simulate_benchmark(n_systems = 20)
 #' m1 <- bc_fit(data, response = "count")
 #' m2 <- bc_fit(data, response = "count", model_shape = TRUE)
@@ -209,6 +209,11 @@ bc_loo_compare <- function(..., model_names = NULL) {
 #' @srrstats {BS5.5} bc_check_convergence()$problems returns diagnostics.
 #' @srrstats {BS4.5} bc_check_convergence warns on non-convergence.
 #' @srrstats {BS4.7} Convergence thresholds tested in test suite.
+#' @srrstatsNA {BS3.1} Collinearity diagnosis not applicable: bayescomp
+#'   uses categorical predictors (method factor) where perfect collinearity
+#'   is structurally impossible; brms/Stan handles rank deficiency.
+#' @srrstatsNA {BS3.2} Not applicable: no collinear continuous predictors
+#'   in the standard bayescomp workflow. brms handles via Stan QR.
 #' @srrstats {RE4.7} bc_check_convergence returns convergence stats.
 #' @srrstats {RE4.11} bc_loo provides elpd goodness-of-fit.
 #' @noRd

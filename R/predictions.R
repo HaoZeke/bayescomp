@@ -15,7 +15,7 @@
 #' @param ... Additional arguments passed to [tidybayes::add_epred_draws()].
 #' @return A grouped data frame from `tidybayes::add_epred_draws()`.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data <- bc_simulate_benchmark(n_systems = 20)
 #' model <- bc_fit(data, response = "count")
 #' draws <- bc_epred_draws(model, newdata = data)

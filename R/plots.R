@@ -34,7 +34,7 @@
 #'   the bayescomp palette.
 #' @return A ggplot object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_plot_conditional(model, effects = "method")
 #' }
@@ -155,7 +155,7 @@ bc_plot_conditional <- function(model,
 #' @param type Type of pp_check (default `"dens_overlay"`).
 #' @return A ggplot object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_plot_pp(model)
 #' }
@@ -178,7 +178,7 @@ bc_plot_pp <- function(model, ndraws = 50, type = "dens_overlay") {
 #' @param colors Named character vector of method colors.
 #' @return A ggplot object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count",
 #'   model_shape = TRUE)
 #' bc_plot_shape(model)
@@ -252,7 +252,7 @@ bc_plot_shape <- function(model, method_col = "method", colors = NULL) {
 #' @param y Observed response vector.
 #' @return A ggplot object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' loo_result <- bc_loo(model)
 #' bc_plot_loo_pit(model, loo_result, y = model$data$count)
@@ -279,7 +279,7 @@ bc_plot_loo_pit <- function(model, loo_result, y) {
 #' @param colors Named character vector of method colors.
 #' @return A ggplot object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_plot_forest(model)
 #' }
@@ -321,7 +321,7 @@ bc_plot_forest <- function(model, method_col = "method", colors = NULL) {
 #' @param colors Character vector of colors for each contrast (optional).
 #' @return A ggplot object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' contrasts <- bc_pairwise_contrasts(model)
 #' bc_plot_contrasts(contrasts)
@@ -363,7 +363,7 @@ bc_plot_contrasts <- function(contrasts, colors = NULL) {
 #'   observation index (default 0.7).
 #' @return A ggplot object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' loo_result <- bc_loo(model)
 #' bc_plot_pareto_k(loo_result)
@@ -428,7 +428,7 @@ bc_plot_pareto_k <- function(loo_result, label_threshold = 0.7) {
 #'   plots the intercept, method effects, and random effect SD.
 #' @return A ggplot object.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_plot_trace(model)
 #' }
@@ -461,7 +461,7 @@ bc_plot_trace <- function(model, pars = NULL) {
 #' @return A DHARMa simulation object (invisibly). Produces diagnostic plots
 #'   as a side effect.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_dharma_check(model)
 #' }

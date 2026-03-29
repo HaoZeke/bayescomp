@@ -346,6 +346,14 @@ bc_validate <- function(data,
 #' @srrstats {G2.1a} All param docs specify expected types.
 #' @srrstats {G2.2} bc_validate rejects data with fewer than 2 method levels.
 #' @srrstats {G2.3b} Column name matching is case-sensitive.
+#' @srrstats {G2.4a} bc_validate converts to integer: count data via
+#'   as.integer() when non-integer numeric detected.
+#' @srrstats {G2.4b} bc_validate converts to numeric: response column
+#'   checked via is.numeric().
+#' @srrstats {G2.4c} bc_pivot_long method names kept as character before
+#'   factor conversion; no paste-based coercion.
+#' @srrstats {G2.4e} bc_validate converts from factor only via as.factor()
+#'   on character inputs; no implicit factor->numeric coercion.
 #' @srrstats {G2.5} method/system_id must be unordered factors.
 #' @srrstats {G2.6} bc_validate checks are class-agnostic.
 #' @srrstats {G2.7} bc_read_benchmark accepts CSV paths and data.frames.
@@ -355,11 +363,25 @@ bc_validate <- function(data,
 #' @srrstats {G2.12} List columns cause brms errors with informative messages.
 #' @srrstats {G2.14b} allow_negative relaxes negativity checks.
 #' @srrstats {G2.14c} Not applicable: no imputation.
+#' @srrstats {G3.0} No floating-point equality comparisons; bc_filter_matching
+#'   uses tolerance-based range checks (diff(range()) <= tol).
 #' @srrstats {G5.8a} Zero-length data: bc_validate errors on empty data.
 #' @srrstats {G5.8b} Unsupported types: bc_validate errors on non-numeric.
 #' @srrstats {G5.8c} All-NA: bc_validate catches and reports.
+#' @srrstats {G5.8d} Edge: single-system or single-method data produces
+#'   informative errors from bc_validate.
+#' @srrstats {RE2.0} bc_validate asserts dimensionality: >= 2 methods,
+#'   >= 1 system, required columns present.
 #' @srrstats {RE2.1} bc_validate handles NA/NaN/Inf with distinct messages.
 #' @srrstats {RE2.2} Missing values rejected in both response and predictors.
+#' @srrstats {RE2.3} Collinearity: not applicable, brms handles rank
+#'   deficiency internally via Stan's QR decomposition.
+#' @srrstats {RE2.4} bc_validate errors on NA by default; bc_filter_matching
+#'   removes systems with NA via na.rm = TRUE aggregation.
+#' @srrstats {RE2.4a} bc_validate explicitly checks NaN and Inf with
+#'   distinct error messages per type.
+#' @srrstats {RE2.4b} bc_validate never assumes non-missingness; every
+#'   numeric column is explicitly checked for NA/NaN/Inf.
 #' @srrstats {RE7.2} test-data_prep.R verifies names/levels retained.
 #' @noRd
 NULL

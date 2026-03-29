@@ -16,7 +16,7 @@
 #' @return Invisibly returns a list with components: convergence, effects,
 #'   loo_result. Prints a formatted report as a side effect.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_report(model)
 #' }

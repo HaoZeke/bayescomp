@@ -16,7 +16,7 @@
 #'   percentage changes. For logit-link: baseline probability, odds ratios.
 #'   For identity-link: baseline value, additive effects.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_summarize_effects(model)
 #' }
@@ -130,7 +130,7 @@ bc_summarize_effects <- function(model, width = 0.95) {
 #' @param ... Arguments passed to [bc_summarize_effects()].
 #' @return A data frame with columns: Effect, Median, `95% CrI`.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_effect_table(model)
 #' }
@@ -164,7 +164,7 @@ bc_effect_table <- function(model, ...) {
 #' @param width Credible interval width (default 0.95).
 #' @return A tibble with columns: contrast, estimate, lower, upper, formatted.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' model <- bc_fit(bc_simulate_benchmark(), response = "count")
 #' bc_pairwise_contrasts(model)
 #' }
