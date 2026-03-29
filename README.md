@@ -71,7 +71,9 @@ You can. bayescomp adds value through:
 
 - **Family selection guardrails**: warns against Gaussian for count data
 - **Sensible defaults**: weakly informative priors calibrated for N=20-100
-  benchmark sets
+  benchmark sets: `normal(0, 1)` on fixed effects, `exponential(1)` on
+  random effect SD, `student_t(3, 0, 2.5)` on intercept (see
+  `bc_default_priors()`)
 - **Right-censoring support**: runs hitting iteration limits are
   right-censored, not treated as observed counts
 - **One-call workflow**: `bc_read_benchmark() |> bc_pivot_long() |> bc_fit()`
