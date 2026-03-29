@@ -115,7 +115,7 @@
 <li>
 <strong>Family selection guardrails</strong>: warns against Gaussian for count data</li>
 <li>
-<strong>Sensible defaults</strong>: weakly informative priors calibrated for N=20-100 benchmark sets</li>
+<strong>Sensible defaults</strong>: weakly informative priors calibrated for N=20-100 benchmark sets: <code>normal(0, 1)</code> on fixed effects, <code>exponential(1)</code> on random effect SD, <code>student_t(3, 0, 2.5)</code> on intercept (see <code><a href="reference/bc_default_priors.html">bc_default_priors()</a></code>)</li>
 <li>
 <strong>Right-censoring support</strong>: runs hitting iteration limits are right-censored, not treated as observed counts</li>
 <li>
